@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RDW Kentekendata</title>
+    <style>
+        /* Flex container voor de inhoud */
+        .container {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px; /* Ruimte tussen tekst en afbeelding */
+        }
+
+        /* Inhoud aan de linkerkant */
+        .content {
+            flex: 1;
+        }
+
+        /* Maak de links standaard onzichtbaar */
+        #resultaatURL1, #resultaatURL2 {
+            display: none;
+        }
+
+        /* Afbeelding styling */
+        .image-container img {
+            max-width: 300px; /* Maximale breedte van de afbeelding */
+            height: auto;
+            border-radius: 10px; /* Afgeronde hoeken */
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3); /* Schaduw voor mooi effect */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>RDW Kentekengegevens</h1>
+
+    <div class="container">
+        <!-- Linkerzijde met formulier -->
+        <div class="content">
+            <h2>Plak hier je kentekens (één per regel):</h2>
+            <textarea id="kentekenInput" rows="10" cols="50"></textarea>
+            <br>
+            <button onclick="genereerURLs()">Genereer URL's</button>
+            
+            <h3>Basis, Technisch en Fiscaal</h3>
+            <a id="resultaatURL1" href="#" target="_blank">Download CSV-bestand</a>
+            
+            <h3>Motor en Milieu</h3>
+            <a id="resultaatURL2" href="#" target="_blank">Download CSV-bestand</a>
+        </div>
+
+        <!-- Rechterzijde met afbeelding -->
+        <div class="image-container">
+            <img src="images/Logo TraXall" alt="Logo image">
+        </div>
+    </div>
+
+    <script>
+        function genereerURLs() {
+            const vasteURL1 = "https://opendata.rdw.nl/resource/m9d7-ebf2.csv?$where=";
+            const vasteURL2 = "https://opendata.rdw.nl/resource/8ys7-d773.csv?$where=";
+            
+            let kentekens = document.getElementById("kentekenInput").value
+                .split('\n')
+                .map(k => k.trim())
+                .filter(k => k !== "");
+            
+            if (kentekens.length === 0) {
+                alert("Voer minstens één kenteken in.");
+                return;
+            }
+            
+            let query = kentekens.map(k => `kenteken='${k}'`).join(" OR ");
+            let volledigeURL1 = vasteURL1 + query;
+            let volledigeURL2 = vasteURL2 + query;
+            
+            let resultaatElement1 = document.getElementById("resultaatURL1");
+            resultaatElement1.href = volledigeURL1;
+            
+            let resultaatElement2 = document.getElementById("resultaatURL2");
+            resultaatElement2.href = volledigeURL2;
+            
+            // Maak de links zichtbaar
+            resultaatElement1.style.display = "block";
+            resultaatElement2.style.display = "block";
+        }
+    </script>
+
+</body>
+</html>
