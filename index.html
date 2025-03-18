@@ -5,40 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RDW Kentekendata</title>
     <style>
+        /* Zorg ervoor dat de body de volledige hoogte van het scherm gebruikt */
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
         /* Flex container voor de inhoud */
         .container {
             display: flex;
-            align-items: flex-start;
-            gap: 20px; /* Ruimte tussen tekst en afbeelding */
+            flex-direction: column; /* Plaats alles verticaal */
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            gap: 20px; /* Ruimte tussen elementen */
+            max-width: 800px; /* Limiteer de breedte van de container */
+            width: 100%;
         }
 
-        /* Inhoud aan de linkerkant */
-        .content {
-            flex: 1;
-        }
-
-        /* Maak de links standaard onzichtbaar */
-        #resultaatURL1, #resultaatURL2 {
-            display: none;
-        }
-
-        /* Afbeelding styling */
+        /* Afbeelding bovenaan centreren */
         .image-container img {
             max-width: 300px; /* Maximale breedte van de afbeelding */
             height: auto;
             border-radius: 10px; /* Afgeronde hoeken */
             box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3); /* Schaduw voor mooi effect */
         }
+
+        /* Inhoud styling */
+        .content {
+            width: 100%;
+        }
+
+        /* Maak de links standaard onzichtbaar */
+        #resultaatURL1, #resultaatURL2 {
+            display: none;
+        }
     </style>
 </head>
 <body>
 
-    <h1>RDW Kentekengegevens</h1>
-
     <div class="container">
-        <!-- Linkerzijde met formulier -->
+        <!-- Logo bovenaan -->
+        <div class="image-container">
+            <img src="logo-traxall.png" alt="Logo image">
+        </div>
+
+        <!-- Formulier voor kentekens -->
         <div class="content">
-            <h2>Plak hier je kentekens (één per regel):</h2>
+            <h1>RDW Kentekendata</h1>
+            <h2>Plak hier je kentekens (1 per regel, max 500):</h2>
             <textarea id="kentekenInput" rows="10" cols="50"></textarea>
             <br>
             <button onclick="genereerURLs()">Genereer URL's</button>
@@ -48,11 +67,6 @@
             
             <h3>Motor en Milieu</h3>
             <a id="resultaatURL2" href="#" target="_blank">Download CSV-bestand</a>
-        </div>
-
-        <!-- Rechterzijde met afbeelding -->
-        <div class="image-container">
-            <img src="logo-traxall.png" alt="Logo image">
         </div>
     </div>
 
