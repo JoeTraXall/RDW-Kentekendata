@@ -18,7 +18,7 @@
         .wrapper {
             display: flex;
             gap: 20px;
-            max-width: 1100px;
+            max-width: 1200px;
             width: 100%;
             justify-content: center;
         }
@@ -30,11 +30,21 @@
             align-items: center;
             text-align: center;
             gap: 5px;
-            max-width: 450px;
-            width: 100%;
             background-color: white;
             padding: 10px;
             border-radius: 10px;
+        }
+
+        .left-container {
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .right-container {
+            max-width: 600px;
+            width: 100%;
+            padding: 15px;
+            text-align: left;
         }
 
         .image-container img {
@@ -55,37 +65,38 @@
 </head>
 <body>
     <div class="wrapper">
-        <div class="container">
+        <div class="container left-container">
             <div class="image-container">
                 <img src="logo-traxall.png" alt="Logo image">
             </div>
             <div class="content">
                 <h1>RDW Kentekendata</h1>
-                <h2>Plak hier je kentekens</h2>
-                 <h3>(1 per regel, max 500)</h3>
+                <h2>Plak hier je kentekens (1 per regel, max 500):</h2>
                 <textarea id="kentekenInput" rows="10" cols="40"></textarea>
                 <br>
                 <button onclick="genereerURLs()">Genereer URL's</button>
-                <h4>Basis, Technisch en Fiscaal</h4>
+                <h3>Basis, Technisch en Fiscaal</h3>
                 <a id="resultaatURL1" href="#" target="_blank">Download CSV-bestand</a>
-                <h5>Motor en Milieu</h5>
+                <h3>Motor en Milieu</h3>
                 <a id="resultaatURL2" href="#" target="_blank">Download CSV-bestand</a>
             </div>
         </div>
         
-        <div class="container">
+        <div class="container right-container">
             <h1>Handleiding CSV-Bestanden</h1>
             <p><strong>Basis, Technisch en Fiscaal</strong></p>
             <p><strong>Catalogusprijs:</strong> Kolom V</p>
-            <p><strong>Datum 1e toelating:</strong> Kolom S. Voeg een nieuwe kolom in op T en plak deze formule in T2:<br> =DATUM(LINKS(S2;4);DEEL(S2;5;2);RECHTS(S2;2)).</p>
+            <p><strong>Datum 1e toelating:</strong> Kolom S. Voeg een nieuwe kolom in op T en plak deze formule in T2: =DATUM(LINKS(S2;4);DEEL(S2;5;2);RECHTS(S2;2)).</p>
             <p><strong>Motor en Milieu</strong></p>
             <p>Filter kolom C (brandstof_omschrijving) op Elektriciteit en kopieer deze rijen naar een nieuw werkblad. Verwijder deze rijen uit het eerste werkblad.</p>
             <p>Filter kolommen V en U van Hoog naar Laag. Hier staat de WLTP. Plak de data in één kolom voor eenvoudiger verticaal zoeken.</p>
             <p>Indien geen CO²-uitstoot beschikbaar is, controleer kolom G (NEDC).</p>
             <p>Kolom AH bevat de hybrideklasse:</p>
-            <p>PHEV: OVC-HEV</p>
-            <p>(M)HEV: NOVC-HEV</p>
-            <p>H2: NOVC-FCHV</p>
+            <ul>
+                <li><strong>PHEV:</strong> OVC-HEV</li>
+                <li><strong>(M)HEV:</strong> NOVC-HEV</li>
+                <li><strong>H2:</strong> NOVC-FCHV</li>
+            </ul>
         </div>
     </div>
 
