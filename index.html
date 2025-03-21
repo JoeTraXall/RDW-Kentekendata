@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RDW Kentekendata</title>
     <style>
-        /* Zorg ervoor dat de body de volledige hoogte van het scherm gebruikt en een blauwe achtergrond heeft */
         body, html {
             height: 100%;
             margin: 0;
@@ -13,64 +12,79 @@
             justify-content: center;
             align-items: center;
             font-family: Arial, sans-serif;
-            background-color: #213153; /* Donkerblauwe achtergrond voor de hele pagina */
+            background-color: #213153;
         }
 
-        /* Flex container voor de inhoud */
+        .wrapper {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
+            justify-content: center;
+        }
+
         .container {
             display: flex;
-            flex-direction: column; /* Plaats alles verticaal */
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            gap: 20px; /* Ruimte tussen elementen */
-            max-width: 800px; /* Limiteer de breedte van de container */
+            gap: 20px;
+            max-width: 500px;
             width: 100%;
-            background-color: white; /* Witte achtergrond voor de inhoud */
+            background-color: white;
             padding: 20px;
-            border-radius: 10px; /* Afgeronde hoeken van de inhoud */
+            border-radius: 10px;
         }
 
-        /* Afbeelding bovenaan centreren */
         .image-container img {
-            max-width: 300px; /* Maximale breedte van de afbeelding */
+            max-width: 300px;
             height: auto;
-            border-radius: 10px; /* Afgeronde hoeken */
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3); /* Schaduw voor mooi effect */
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
         }
 
-        /* Inhoud styling */
         .content {
             width: 100%;
         }
 
-        /* Maak de links standaard onzichtbaar */
         #resultaatURL1, #resultaatURL2 {
             display: none;
         }
     </style>
 </head>
 <body>
-
-    <div class="container">
-        <!-- Logo bovenaan -->
-        <div class="image-container">
-            <img src="logo-traxall.png" alt="Logo image">
+    <div class="wrapper">
+        <div class="container">
+            <div class="image-container">
+                <img src="logo-traxall.png" alt="Logo image">
+            </div>
+            <div class="content">
+                <h1>RDW Kentekendata</h1>
+                <h2>Plak hier je kentekens (1 per regel, max 500):</h2>
+                <textarea id="kentekenInput" rows="10" cols="50"></textarea>
+                <br>
+                <button onclick="genereerURLs()">Genereer URL's</button>
+                <h3>Basis, Technisch en Fiscaal</h3>
+                <a id="resultaatURL1" href="#" target="_blank">Download CSV-bestand</a>
+                <h3>Motor en Milieu</h3>
+                <a id="resultaatURL2" href="#" target="_blank">Download CSV-bestand</a>
+            </div>
         </div>
-
-        <!-- Formulier voor kentekens -->
-        <div class="content">
-            <h1>RDW Kentekendata</h1>
-            <h2>Plak hier je kentekens (1 per regel, max 500):</h2>
-            <textarea id="kentekenInput" rows="10" cols="50"></textarea>
-            <br>
-            <button onclick="genereerURLs()">Genereer URL's</button>
-            
-            <h3>Basis, Technisch en Fiscaal</h3>
-            <a id="resultaatURL1" href="#" target="_blank">Download CSV-bestand</a>
-            
-            <h3>Motor en Milieu</h3>
-            <a id="resultaatURL2" href="#" target="_blank">Download CSV-bestand</a>
+        
+        <div class="container">
+            <h1>Handleiding CSV-Bestanden</h1>
+            <p><strong>Basis, Technisch en Fiscaal</strong></p>
+            <p><strong>Catalogusprijs:</strong> Te vinden in kolom V</p>
+            <p><strong>Datum 1e toelating:</strong> Te vinden in kolom S. Voeg een nieuwe kolom in op kolom T en plak deze formule in T2: =DATUM(LINKS(S2;4);DEEL(S2;5;2);RECHTS(S2;2)).</p>
+            <p><strong>Motor en Milieu</strong></p>
+            <p>Filter kolom C (brandstof_omschrijving) eerst op Elektriciteit en kopieer deze rijen naar een nieuw werkblad. Verwijder deze rijen daarna uit het eerste werkblad.</p>
+            <p>Van de overgebleven regels kun je nu de CO²-uitstoot verticaal zoeken. Filter kolom V van Hoog naar Laag en vervolgens kolom U van Hoog naar Laag. In deze twee kolommen staat de WLTP. Plak de data in 1 kolom naar de andere, dat maakt verticaal zoeken wat makkelijker.</p>
+            <p>Indien een kenteken hier geen uitstoot heeft staan kan het ook zijn dat deze wel een NEDC heeft. Deze staat in kolom G.</p>
+            <p>In kolom AH staat de hybrideklasse van een voertuig.</p>
+            <p>PHEV: OVC-HEV (Off-Vehicle Charging Hybrid Electric Vehicle)</p>
+            <p>(M)HEV = NOVC-HEV (Not Off-Vehicle Charging Hybrid Electric Vehicle)</p>
+            <p>H2 = NOVC-FCHV (Not Off-Vehicle Charging Fuel Cell Hybrid Vehicle)</p>
         </div>
     </div>
 
@@ -99,11 +113,9 @@
             let resultaatElement2 = document.getElementById("resultaatURL2");
             resultaatElement2.href = volledigeURL2;
             
-            // Maak de links zichtbaar
             resultaatElement1.style.display = "block";
             resultaatElement2.style.display = "block";
         }
     </script>
-
 </body>
 </html>
